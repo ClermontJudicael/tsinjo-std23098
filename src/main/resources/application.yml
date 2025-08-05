@@ -1,0 +1,17 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:tsinfo;DB_CLOSE_DELAY=-1
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  jpa:
+    hibernate:
+      ddl-auto: none
+  thymeleaf:
+    cache: false
+  flyway:
+    locations: classpath:db/migration
+vola:
+  api:
+    url: https://42cwk3a4ifcq7ufheyrpmph240iuaxo.lambda-url.eu-west-3.on.aws/v3
+    key: ${VOLA_API_KEY:placeholder-api-key}

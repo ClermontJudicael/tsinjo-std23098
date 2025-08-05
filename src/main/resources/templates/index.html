@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Tsinfo</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+<div class="container mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-4">Tsinfo - HEI Emergency Fund</h1>
+
+    <!-- Donation Form -->
+    <form th:action="@{/donate}" method="post" class="mb-8">
+        <div class="grid grid-cols-1 gap-4">
+            <input type="email" name="donorEmail" placeholder="Email" required class="p-2 border rounded">
+            <input type="text" name="donorFullName" placeholder="Full Name" required class="p-2 border rounded">
+            <input type="number" name="amount" placeholder="Amount" required step="0.01" class="p-2 border rounded">
+            <input type="text" name="paymentMethod" placeholder="Payment Method" required class="p-2 border rounded">
+            <input type="text" name="paymentId" placeholder="Payment ID" required class="p-2 border rounded">
+            <button type="submit" class="bg-blue-500 text-white p-2 rounded">Submit Donation</button>
+        </div>
+    </form>
+
+    <!-- Donations List -->
+    <h2 class="text-2xl font-semibold mb-2">Donations</h2>
+    <table class="w-full mb-8 border">
+        <thead>
+        <tr class="bg-gray-200">
+            <th class="p-2">Date</th>
+            <th class="p-2">Donor</th>
+            <th class="p-2">Amount</th>
+            <th class="p-2">Payment Method</th>
+            <th class="p-2">Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="donation : ${donations}">
+            <td class="p-2" th:text="${#temporals.format(donation.donationDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td class="p-2" th:text="${donation.donor.fullName} + ' (' + ${donation.donor.email} + ')'"></td>
+            <td class="p-2" th:text="${donation.payment.amount}"></td>
+            <td class="p-2" th:text="${donation.payment.paymentMethod}"></td>
+            <td class="p-2" th:text="${donation.payment.status}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Helps List -->
+    <h2 class="text-2xl font-semibold mb-2">Aids</h2>
+    <table class="w-full border">
+        <thead>
+        <tr class="bg-gray-200">
+            <th class="p-2">Date</th>
+            <th class="p-2">Beneficiary</th>
+            <th class="p-2">Amount</th>
+            <th class="p-2">Payment Method</th>
+            <th class="p-2">Accident Description</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="help : ${helps}">
+            <td class="p-2" th:text="${#temporals.format(help.aidDate, 'yyyy-MM-dd HH:mm:ss')}"></td>
+            <td class="p-2" th:text="${help.beneficiary.fullName} + ' (' + ${help.beneficiary.email} + ')'"></td>
+            <td class="p-2" th:text="${help.payment.amount}"></td>
+            <td class="p-2" th:text="${help.payment.paymentMethod}"></td>
+            <td class="p-2" th:text="${help.accidentDescription}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
